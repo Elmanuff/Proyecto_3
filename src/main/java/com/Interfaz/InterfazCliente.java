@@ -1,4 +1,5 @@
-package com.Cliente;
+package com.Interfaz;
+
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -11,6 +12,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 
@@ -53,7 +55,7 @@ public class InterfazCliente  extends Application {
         });
 
         registroButton.setOnAction(e -> {
-            abrirVentanaCiudad();
+            abrirVentanaRegistro();
         });
 
         vbox.getChildren().addAll(usernameLabel, usernameInput, passwordLabel, passwordInput, inicioButton, registroButton);
@@ -107,7 +109,6 @@ public class InterfazCliente  extends Application {
 
         registrationStage.show();
     }
-
     private void abrirVentanaCiudad() {
         // Ocultar la ventana principal
         primaryStage.hide();
@@ -127,7 +128,7 @@ public class InterfazCliente  extends Application {
         int rows = (int) (canvas.getHeight() / cellSize);
         int cols = (int) (canvas.getWidth() / cellSize);
 
-        gc.setFill(Color.LIGHTGRAY);
+        gc.setFill(Color.LIGHTBLUE);
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 gc.fillRect(j * cellSize, i * cellSize, cellSize, cellSize);

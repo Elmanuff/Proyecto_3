@@ -4,5 +4,8 @@ module com.example.proyecto_3 {
 
 
     opens com.example.proyecto_3 to javafx.fxml;
+    opens com.Interfaz to javafx.graphics;
+
     exports com.example.proyecto_3;
+    exports com.Interfaz;
 }

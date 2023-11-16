@@ -1,8 +1,5 @@
 package com.Servidor;
 
-import com.EstructurasDatos.MainArbol;
-import com.EstructurasDatos.Nodo;
-import com.opencsv.CSVWriter;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -95,11 +92,7 @@ class Servidor {
      * @throws IOException
      */
     public static void escribirCSV(String mensaje, String persona, String fecha, String resultado) throws IOException {
-        CSVWriter csvWriter = new CSVWriter(new FileWriter("Historial.csv", true));
 
-        String[] datosNuevos = {persona, mensaje, resultado, fecha};
-        csvWriter.writeNext(datosNuevos);
-        csvWriter.close();
     }
 
     /**
@@ -257,7 +250,6 @@ class ManejoClientes extends Thread {
      * @throws IOException
      */
     public void procesarMensaje(String message) throws IOException {
-        MainArbol mainArbol = new MainArbol();
         LocalDateTime ahora = LocalDateTime.now().withHour(0);
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         System.out.println(ahora.format(formato));
@@ -269,13 +261,7 @@ class ManejoClientes extends Thread {
             String contenido = partes[1].trim();
 
             String expresionPostfija = Servidor.convertirPostfijo(contenido);
-            String expresionCompleta = MainArbol.convertirExpresionesLogicas(expresionPostfija);
-            String[] tokens = expresionCompleta.split(" ");
-            Nodo raiz = MainArbol.construirArbol(tokens);
-            int resultado = MainArbol.evaluarArbol(raiz);
 
-            Servidor.escribirCSV(contenido, destinatario, String.valueOf(ahora.format(formato)), String.valueOf(resultado));
-            Servidor.enviarUno(destinatario, contenido + " = " + resultado);
         }
     }
 }

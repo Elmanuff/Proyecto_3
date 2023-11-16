@@ -17,15 +17,11 @@ import java.net.Socket;
  */
 public class MainCliente extends Application {
     public static Cliente cliente;
-    ClienteController clienteController = new ClienteController();
-    static MainController mainController = new MainController();
-    static HistorialController historialController = new HistorialController();
 
     @Override
     public void start(Stage primaryStage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainCliente.class.getResource("VentanaCliente.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        clienteController= fxmlLoader.getController();
 
         primaryStage.setTitle("Cliente");
         primaryStage.setScene(scene);
@@ -40,7 +36,6 @@ public class MainCliente extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(MainCliente.class.getResource("MainVentana.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         Stage stage = new Stage();
-        mainController = fxmlLoader.getController();
 
         stage.setTitle("Math");
         stage.setScene(scene);
@@ -55,7 +50,6 @@ public class MainCliente extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(MainCliente.class.getResource("VentanaHistorial.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         Stage stage = new Stage();
-        historialController = fxmlLoader.getController();
 
         stage.setTitle("Historial");
         stage.setScene(scene);
@@ -110,7 +104,6 @@ class Cliente {
 
                 if (mensaje != null) {
                     System.out.println("Resultado de expresion: " + mensaje);
-                    MainCliente.mainController.escribirResultado(mensaje);
                 }
             } catch (IOException e) {
                 throw new RuntimeException(e);
