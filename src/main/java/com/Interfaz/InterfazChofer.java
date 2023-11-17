@@ -5,18 +5,20 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
+import javafx.stage.Stage;
 
-public class InterfazCliente  extends Application {
+public class InterfazChofer extends Application {
     private MainCliente cliente;
     private Stage primaryStage;
 
@@ -32,10 +34,10 @@ public class InterfazCliente  extends Application {
         VBox vbox = new VBox(10); // 10 pixels de espacio entre los elementos
         vbox.setPadding(new Insets(20, 20, 20, 20)); // Padding alrededor del VBox
         vbox.setAlignment(Pos.CENTER); // Centrar el VBox en la pantalla
-        vbox.setStyle("-fx-background-color: #b3c6ff;");
+        vbox.setStyle("-fx-background-color: #B785EC;");
         // Etiquetas
-        Label titulo = new Label("EmployeeApp");
-        titulo.setStyle("-fx-font-family: Arial; -fx-font-size: 20; -fx-text-fill: #0638BE;");
+        Label titulo = new Label("DriverApp");
+        titulo.setStyle("-fx-font-family: Arial; -fx-font-size: 20; -fx-text-fill: #7400F0;");
         Label usernameLabel = new Label("Usuario:");
         Label passwordLabel = new Label("Codigo de empleado:");
 

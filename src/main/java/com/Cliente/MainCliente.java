@@ -42,7 +42,10 @@ public class MainCliente extends Application {
         stage.resizableProperty().setValue(false);
         stage.show();
     }
+    // Función para registrar el usuario, se debe comunicar con el servidor
+    public void enviarUsuario(String nombre, String codigo, String Ubicación){
 
+    }
     /**
      * Función que abre la ventana del historial
      */
@@ -88,6 +91,7 @@ class Cliente {
             e.printStackTrace();
         }
     }
+
 
     /**
      * Función que envía la expresión al servidor
