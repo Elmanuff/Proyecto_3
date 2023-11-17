@@ -8,6 +8,8 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -26,6 +28,10 @@ public class InterfazChofer extends Application {
         launch(args);
     }
 
+    /**
+     * Funcion para iniciar la ventana del empleado
+     * @param primaryStage
+     */
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -71,6 +77,9 @@ public class InterfazChofer extends Application {
         primaryStage.show();
     }
 
+    /**
+     * Metodo que crea la ventana de registro
+     */
     private void abrirVentanaRegistro() {
         primaryStage.hide();
         Stage registrationStage = new Stage();
@@ -118,6 +127,10 @@ public class InterfazChofer extends Application {
 
         registrationStage.show();
     }
+
+    /**
+     * Metodo que crea la interfaz del mapa
+     */
     private void abrirVentanaCiudad() {
         // Ocultar la ventana principal
         primaryStage.hide();
@@ -168,6 +181,44 @@ public class InterfazChofer extends Application {
             System.out.println("Carpooling activado");
         });
 
+        Button addFriendButton = new Button("Agregar amigo");
+        addFriendButton.setOnAction(e -> {
+            // Lista para almacenar amigos
+            ListView<String> friendListView = new ListView<>();
+
+            // Campos de texto para ingresar el nombre y el código del amigo
+            TextField friendNameInput = new TextField();
+            friendNameInput.setPromptText("Ingrese el nombre del amigo");
+            TextField friendCodeInput = new TextField();
+            friendCodeInput.setPromptText("Ingrese el código del amigo");
+
+            // Botón para agregar amigos a la lista
+            Button addFriend = new Button("Agregar Amigo");
+            addFriend.setOnAction(a -> {
+                String friendName = friendNameInput.getText();
+                String friendCode = friendCodeInput.getText();
+                if (!friendName.isEmpty() && !friendCode.isEmpty()) {
+                    friendListView.getItems().add(friendName + " - Código: " + friendCode);
+                    friendNameInput.clear();
+                    friendCodeInput.clear();
+                }
+            });
+
+            // Diseño de la interfaz utilizando GridPane para organizar los elementos
+            GridPane root = new GridPane();
+            root.setPadding(new Insets(10));
+            root.setHgap(10);
+            root.setVgap(10);
+            root.addRow(0, friendNameInput, friendCodeInput, addFriend);
+            root.addRow(1, friendListView);
+
+            // Configurar la escena y mostrar la ventana
+            Scene scene = new Scene(root, 400, 300);
+            primaryStage.setTitle("Agregar Amigos");
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        });
+
         // Crear un botón para volver a la pantalla de inicio
         Button backButton = new Button("Volver");
         backButton.setOnAction(e -> {
@@ -177,11 +228,12 @@ public class InterfazChofer extends Application {
         });
 
         // Agregar los botones al contenedor HBox
-        buttonBox.getChildren().addAll(backButton, carpoolingButton);
+        buttonBox.getChildren().addAll(backButton, carpoolingButton, addFriendButton);
 
         // Posicionar los botones en la parte inferior del contenedor
         HBox.setHgrow(backButton, javafx.scene.layout.Priority.ALWAYS);
         HBox.setHgrow(carpoolingButton, javafx.scene.layout.Priority.ALWAYS);
+        HBox.setHgrow(addFriendButton, javafx.scene.layout.Priority.ALWAYS);
 
         // Agregar el contenedor HBox encima del Canvas en el Pane
         rootPane.getChildren().add(buttonBox);

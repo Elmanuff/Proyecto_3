@@ -24,6 +24,10 @@ public class InterfazCliente  extends Application {
         launch(args);
     }
 
+    /**
+     * Funcion para iniciar la ventana del empleado
+     * @param primaryStage
+     */
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -70,6 +74,9 @@ public class InterfazCliente  extends Application {
     }
 
     private void abrirVentanaRegistro() {
+        /**
+         * Metodo que crea la ventana de registro
+         */
         primaryStage.hide();
         Stage registrationStage = new Stage();
         registrationStage.setTitle("Registration");
@@ -116,6 +123,10 @@ public class InterfazCliente  extends Application {
 
         registrationStage.show();
     }
+
+    /**
+     * Metodo que crea la interfaz del mapa
+     */
     private void abrirVentanaCiudad() {
         // Ocultar la ventana principal
         primaryStage.hide();
