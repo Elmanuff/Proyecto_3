@@ -1,13 +1,13 @@
 package com.Servidor;
 import java.util.*;
 
-class Graph {
+class Grafo {
     int V; // Número de vértices
     List<List<Integer>> adj_list;
     int[][] distances;
 
     // Constructor de la clase
-    public Graph(int V) {
+    public Grafo(int V) {
         this.V = V;
         adj_list = new ArrayList<>();
         distances = new int[V][V];
@@ -28,12 +28,5 @@ class Graph {
                 adj_list.get(j).add(i);
             }
         }
-    }
-}
-
-public class Grafo {
-    public static void main(String[] args) {
-        // Crea un grafo con 30 nodos
-        Graph graph = new Graph(30);
     }
 }

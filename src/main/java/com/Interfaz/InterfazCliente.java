@@ -12,12 +12,11 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 
 public class InterfazCliente  extends Application {
-    private MainCliente cliente;
+    private MainCliente clienteUsuario;
     private Stage primaryStage;
 
     public static void main(String[] args) {
@@ -56,7 +55,7 @@ public class InterfazCliente  extends Application {
             // Lógica de inicio de sesión
             String usuario = usernameInput.getText();
             String contraseña = passwordInput.getText();
-            // Aquí deberías verificar las credenciales en tu aplicación
+            // Aquí debería verificar las credenciales
             abrirVentanaCiudad();
 
         });

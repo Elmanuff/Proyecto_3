@@ -1,118 +1,38 @@
 package com.Cliente;
 
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.OutputStream;
 import java.net.Socket;
 
 /**
- * Clase principal que contiene el método main para ejecutar el programa.
- * @version 7.3, 26/10/2023
+ * Cliente HTTP que envía una solicitud GET al servidor y muestra la respuesta
  */
-public class MainCliente extends Application {
-    public static Cliente cliente;
-
-    @Override
-    public void start(Stage primaryStage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(MainCliente.class.getResource("VentanaCliente.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-
-        primaryStage.setTitle("Cliente");
-        primaryStage.setScene(scene);
-        primaryStage.resizableProperty().setValue(false);
-        primaryStage.show();
-    }
-
-    /**
-     * Función que abre la ventana principal
-     */
-    public static void abrirMainVentana() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(MainCliente.class.getResource("MainVentana.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        Stage stage = new Stage();
-
-        stage.setTitle("Math");
-        stage.setScene(scene);
-        stage.resizableProperty().setValue(false);
-        stage.show();
-    }
-    // Función para registrar el usuario, se debe comunicar con el servidor
-    public void enviarUsuario(String nombre, String codigo, String Ubicación){
-
-    }
-    /**
-     * Función que abre la ventana del historial
-     */
-    public static void abrirVentanaHistorial() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(MainCliente.class.getResource("VentanaHistorial.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        Stage stage = new Stage();
-
-        stage.setTitle("Historial");
-        stage.setScene(scene);
-        stage.resizableProperty().setValue(false);
-        stage.show();
-    }
-
+public class MainCliente {
     public static void main(String[] args) {
-        launch();
-    }
-}
+        String host = "localhost";
+        int puerto = 8080;
 
-/**
- * Clase del cliente, inicia los sockets y cuenta con la funcion de enviar información al servidor
- */
-class Cliente {
-    private String nombreCliente;
-    private Socket socket;
-    private PrintWriter out;
-    private BufferedReader in;
+        try (Socket socket = new Socket(host, puerto);
+             OutputStream salida = socket.getOutputStream();
+             BufferedReader entrada = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
 
-    /**
-     * Constructor de la clase Cliente
-     * @param ip IP del servidor
-     * @param puerto Puerto del servidor
-     * @param nombre Nombre del cliente
-     */
-    public Cliente(String ip, int puerto, String nombre) {
-        try {
-            nombreCliente = nombre;
-            socket = new Socket(ip, puerto);
-            out = new PrintWriter(socket.getOutputStream(), true);
-            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            out.println(nombre);
+            // Envía una solicitud HTTP GET al servidor
+            String solicitud = "GET /api/saludo HTTP/1.1\r\nHost: " + host + "\r\n\r\n";
+            salida.write(solicitud.getBytes("UTF-8"));
+
+            // Lee la respuesta del servidor
+            StringBuilder respuesta = new StringBuilder();
+            String linea;
+            while ((linea = entrada.readLine()) != null) {
+                respuesta.append(linea).append("\n");
+            }
+
+            System.out.println("Respuesta del servidor:\n" + respuesta.toString());
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-
-    /**
-     * Función que envía la expresión al servidor
-     * @param expression
-     */
-    public void enviarExpresion(String expression) {
-        out.println(this.nombreCliente + ">>" + expression);
-    }
-
-    public void recibirMensajes() {
-        while (true) {
-            try {
-                String mensaje = in.readLine();
-
-                if (mensaje != null) {
-                    System.out.println("Resultado de expresion: " + mensaje);
-                }
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
-
 }

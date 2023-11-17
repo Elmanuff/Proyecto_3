@@ -21,7 +21,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class InterfazChofer extends Application {
-    private MainCliente cliente;
+    private MainCliente clienteChofer;
     private Stage primaryStage;
 
     public static void main(String[] args) {
